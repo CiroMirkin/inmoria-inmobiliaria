@@ -28,6 +28,22 @@ export default function Home() {
   const featuredDevelopments = DEVELOPMENTS.slice(0, 3);
   const recentOpinions = OPINIONS.slice(0, 4);
 
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+    );
+    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+
   const handleSearch = () => {
     const params = new URLSearchParams();
     if (searchOp) params.set('op', searchOp);
@@ -58,21 +74,21 @@ export default function Home() {
               <div className="flex flex-wrap gap-3 mt-8">
                 <Link
                   href="/propiedades"
-                  className="bg-white text-primario font-bold px-6 py-3 rounded-lg hover:bg-white/90 transition-colors inline-flex items-center gap-2"
+                  className="inline-flex items-center gap-2 rounded-lg bg-white px-6 py-3 font-bold text-primario transition-colors hover:bg-white/90"
                 >
                   <i className="fa-solid fa-search"></i>Ver propiedades
                 </Link>
                 <Link
                   href="/tasaciones"
-                  className="border-2 border-white text-white font-bold px-6 py-3 rounded-lg hover:bg-white/10 transition-colors inline-flex items-center gap-2"
+                  className="inline-flex items-center gap-2 rounded-lg border-2 border-white px-6 py-3 font-bold text-white transition-colors hover:bg-white/10"
                 >
                   <i className="fa-solid fa-calculator"></i>Solicitar tasación
                 </Link>
               </div>
             </div>
             {/* Search box */}
-            <div className="bg-white rounded-2xl shadow-2xl p-5 md:p-6 max-w-4xl">
-              <div className="flex gap-1 mb-0" id="htabs">
+            <div className="bg-white rounded-2xl shadow-2xl p-5 md:p-6 max-w-5xl">
+              <div className="flex gap-1 mb-0 flex-wrap">
                 <button
                   className={`tab-btn ${searchOp === '' ? 'active' : ''}`}
                   onClick={() => setSearchOp('')}
@@ -97,39 +113,32 @@ export default function Home() {
                   <div>
                     <label className="form-label">Tipo</label>
                     <select
-                      id="ht"
                       className="form-input text-sm"
                       value={searchType}
                       onChange={(e) => setSearchType(e.target.value)}
                     >
                       <option value="">Todos</option>
                       {PROPERTY_TYPES.map((t) => (
-                        <option key={t} value={t}>
-                          {t}
-                        </option>
+                        <option key={t} value={t}>{t}</option>
                       ))}
                     </select>
                   </div>
                   <div>
                     <label className="form-label">Localidad</label>
                     <select
-                      id="hl"
                       className="form-input text-sm"
                       value={searchLoc}
                       onChange={(e) => setSearchLoc(e.target.value)}
                     >
                       <option value="">Todas</option>
                       {LOCATIONS.map((l) => (
-                        <option key={l} value={l}>
-                          {l}
-                        </option>
+                        <option key={l} value={l}>{l}</option>
                       ))}
                     </select>
                   </div>
                   <div>
                     <label className="form-label">Ambientes</label>
                     <select
-                      id="ha"
                       className="form-input text-sm"
                       value={searchRooms}
                       onChange={(e) => setSearchRooms(e.target.value)}
@@ -145,7 +154,6 @@ export default function Home() {
                   <div>
                     <label className="form-label">Moneda</label>
                     <select
-                      id="hm"
                       className="form-input text-sm"
                       value={searchCurrency}
                       onChange={(e) => setSearchCurrency(e.target.value)}
@@ -163,7 +171,6 @@ export default function Home() {
                     </label>
                     <input
                       type="text"
-                      id="hdir"
                       className="form-input text-sm"
                       placeholder="Ej: Av. Rivadavia 12000"
                       value={searchAddress}
@@ -176,7 +183,6 @@ export default function Home() {
                     </label>
                     <input
                       type="text"
-                      id="hcod"
                       className="form-input text-sm"
                       placeholder="Ej: 001234"
                       value={searchCode}
@@ -185,12 +191,10 @@ export default function Home() {
                   </div>
                 </div>
                 <button
-                  id="hbus"
                   className="btn-primary w-full justify-center py-3 text-base"
                   onClick={handleSearch}
                 >
-                  <i className="fa-solid fa-magnifying-glass"></i>Buscar
-                  propiedades
+                  <i className="fa-solid fa-magnifying-glass"></i>Buscar propiedades
                 </button>
               </div>
             </div>
@@ -200,7 +204,7 @@ export default function Home() {
         {/* Featured Properties */}
         <section className="py-16 md:py-20">
           <div className="max-w-7xl mx-auto px-4">
-            <div className="flex items-end justify-between mb-10 animate-rv">
+            <div className="reveal flex items-end justify-between mb-10">
               <div>
                 <p className="form-label text-pm mb-1">
                   Oportunidades seleccionadas
@@ -229,7 +233,7 @@ export default function Home() {
         {/* Services */}
         <section className="py-16 md:py-20 bg-gcl">
           <div className="max-w-7xl mx-auto px-4">
-            <div className="text-center mb-12 animate-rv">
+            <div className="reveal text-center mb-12">
               <p className="form-label text-pm mb-1">Lo que hacemos</p>
               <h2 className="text-3xl md:text-[32px] font-bold text-oscuro">
                 Nuestros servicios
@@ -237,51 +241,23 @@ export default function Home() {
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {[
-                {
-                  icon: 'fa-handshake',
-                  title: 'Compra y Venta',
-                  desc: 'Acompañamiento completo en la compraventa con asistencia legal y documental.',
-                },
-                {
-                  icon: 'fa-key',
-                  title: 'Alquiler',
-                  desc: 'Gestión integral: búsqueda, contratos, garantías y seguimiento post-alquiler.',
-                },
-                {
-                  icon: 'fa-calendar-days',
-                  title: 'Temporario',
-                  desc: 'Propiedades amuebladas listas para habitar, ideales para estadías cortas.',
-                },
-                {
-                  icon: 'fa-building',
-                  title: 'Emprendimientos',
-                  desc: 'Las mejores oportunidades en desarrollos nuevos de Zona Oeste.',
-                },
-                {
-                  icon: 'fa-calculator',
-                  title: 'Tasaciones',
-                  desc: 'Tasación presencial y gratuita por matriculado con informe detallado.',
-                },
-                {
-                  icon: 'fa-clipboard-list',
-                  title: 'Administración',
-                  desc: 'Administración profesional: cobros, inspecciones, mantenimiento.',
-                },
+                { icon: 'fa-handshake', title: 'Compra y Venta', desc: 'Acompañamiento completo en la compraventa con asistencia legal y documental.' },
+                { icon: 'fa-key', title: 'Alquiler', desc: 'Gestión integral: búsqueda, contratos, garantías y seguimiento post-alquiler.' },
+                { icon: 'fa-calendar-days', title: 'Temporario', desc: 'Propiedades amuebladas listas para habitar, ideales para estadías cortas.' },
+                { icon: 'fa-building', title: 'Emprendimientos', desc: 'Las mejores oportunidades en desarrollos nuevos de Zona Oeste.' },
+                { icon: 'fa-calculator', title: 'Tasaciones', desc: 'Tasación presencial y gratuita por matriculado con informe detallado.' },
+                { icon: 'fa-clipboard-list', title: 'Administración', desc: 'Administración profesional: cobros, inspecciones, mantenimiento.' },
               ].map((service, i) => (
                 <div
                   key={service.title}
-                  className="bg-white rounded-xl p-6 border border-borde card-hover animate-rv"
+                  className="reveal bg-white rounded-xl p-6 border border-borde card-hover"
                   style={{ transitionDelay: `${i * 70}ms` }}
                 >
                   <div className="w-12 h-12 bg-pcl rounded-lg flex items-center justify-center mb-4">
                     <i className={`fa-solid ${service.icon} text-primario text-xl`}></i>
                   </div>
-                  <h3 className="text-lg font-bold text-oscuro mb-2">
-                    {service.title}
-                  </h3>
-                  <p className="text-sm text-gris leading-relaxed">
-                    {service.desc}
-                  </p>
+                  <h3 className="text-lg font-bold text-oscuro mb-2">{service.title}</h3>
+                  <p className="text-sm text-gris leading-relaxed">{service.desc}</p>
                 </div>
               ))}
             </div>
@@ -292,7 +268,7 @@ export default function Home() {
         <section className="py-16 md:py-20">
           <div className="max-w-7xl mx-auto px-4">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              <div className="animate-rv">
+              <div className="reveal">
                 <p className="form-label text-pm mb-1">Sobre nosotros</p>
                 <h2 className="text-3xl md:text-[32px] font-bold text-oscuro mb-6">
                   Más de 25 años en Zona Oeste
@@ -309,10 +285,7 @@ export default function Home() {
                 </p>
                 <div className="flex flex-wrap gap-2 mb-6">
                   {LOCATIONS.map((l) => (
-                    <span
-                      key={l}
-                      className="text-xs font-medium bg-pcl text-primario px-3 py-1.5 rounded-full"
-                    >
+                    <span key={l} className="text-xs font-medium bg-pcl text-primario px-3 py-1.5 rounded-full">
                       {l}
                     </span>
                   ))}
@@ -321,7 +294,7 @@ export default function Home() {
                   Conoce más <i className="fa-solid fa-arrow-right"></i>
                 </Link>
               </div>
-              <div className="animate-rv">
+              <div className="reveal" style={{ transitionDelay: '150ms' }}>
                 <div className="relative rounded-2xl overflow-hidden shadow-xl">
                   <Image
                     src="https://picsum.photos/seed/inmofic/700/500"
@@ -332,18 +305,9 @@ export default function Home() {
                   />
                   <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-oscuro/80 to-transparent p-6">
                     <div className="grid grid-cols-3 gap-4 text-center text-white">
-                      <div>
-                        <p className="text-2xl font-extrabold">25+</p>
-                        <p className="text-xs opacity-75">Años</p>
-                      </div>
-                      <div>
-                        <p className="text-2xl font-extrabold">3500+</p>
-                        <p className="text-xs opacity-75">Operaciones</p>
-                      </div>
-                      <div>
-                        <p className="text-2xl font-extrabold">7</p>
-                        <p className="text-xs opacity-75">Localidades</p>
-                      </div>
+                      <AnimatedCounter value={25} suffix="+" label="Años" />
+                      <AnimatedCounter value={3500} suffix="+" label="Operaciones" />
+                      <AnimatedCounter value={7} suffix="" label="Localidades" />
                     </div>
                   </div>
                 </div>
@@ -355,7 +319,7 @@ export default function Home() {
         {/* Developments */}
         <section className="py-16 md:py-20 bg-pcl/40">
           <div className="max-w-7xl mx-auto px-4">
-            <div className="flex items-end justify-between mb-10 animate-rv">
+            <div className="reveal flex items-end justify-between mb-10">
               <div>
                 <p className="form-label text-pm mb-1">Inversiones en obra</p>
                 <h2 className="text-3xl md:text-[32px] font-bold text-oscuro">
@@ -377,7 +341,7 @@ export default function Home() {
         {/* CTA - Tasaciones */}
         <section className="py-16 md:py-20">
           <div className="max-w-7xl mx-auto px-4">
-            <div className="bg-primario rounded-2xl p-8 md:p-12 flex flex-col md:flex-row items-center gap-8 animate-rv">
+            <div className="reveal bg-primario rounded-2xl p-8 md:p-12 flex flex-col md:flex-row items-center gap-8">
               <div className="flex-1">
                 <h2 className="text-2xl md:text-3xl font-bold text-white mb-3">
                   Tasá tu propiedad sin costo
@@ -390,7 +354,7 @@ export default function Home() {
               <div className="flex flex-col sm:flex-row gap-3 shrink-0">
                 <Link
                   href="/tasaciones"
-                  className="bg-white text-primario font-bold px-6 py-3 rounded-lg hover:bg-white/90 transition-colors inline-flex items-center gap-2"
+                  className="inline-flex items-center gap-2 rounded-lg bg-white px-6 py-3 font-bold text-primario transition-colors hover:bg-white/90"
                 >
                   <i className="fa-solid fa-calculator"></i>Solicitar tasación
                 </Link>
@@ -398,7 +362,7 @@ export default function Home() {
                   href={`https://wa.me/5491146551234?text=${encodeURIComponent('Hola, quiero solicitar una tasación')}`}
                   target="_blank"
                   rel="noopener"
-                  className="border-2 border-white text-white font-bold px-6 py-3 rounded-lg hover:bg-white/10 transition-colors inline-flex items-center gap-2"
+                  className="inline-flex items-center gap-2 rounded-lg border-2 border-white px-6 py-3 font-bold text-white transition-colors hover:bg-white/10"
                 >
                   <i className="fa-brands fa-whatsapp"></i>WhatsApp
                 </Link>
@@ -410,7 +374,7 @@ export default function Home() {
         {/* Opinions */}
         <section className="py-16 md:py-20 bg-gcl">
           <div className="max-w-7xl mx-auto px-4">
-            <div className="text-center mb-12 animate-rv">
+            <div className="reveal text-center mb-12">
               <p className="form-label text-pm mb-1">
                 Lo que dicen nuestros clientes
               </p>
@@ -420,33 +384,26 @@ export default function Home() {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {recentOpinions.map((o) => (
-                <div
-                  key={o.id}
-                  className="bg-white rounded-xl p-6 border border-borde card-hover animate-rv"
-                >
+                <div key={o.id} className="reveal bg-white rounded-xl p-6 border border-borde card-hover">
                   <div className="flex items-center gap-1 mb-3">
                     {[1, 2, 3, 4, 5].map((i) => (
                       <i
                         key={i}
                         className={`fa-solid fa-star ${
-                          i <= o.rating ? 'star filled' : 'star'
-                        }`}
+                          i <= o.rating ? 'text-amber-500' : 'text-slate-300'
+                        } text-sm`}
                       ></i>
                     ))}
                   </div>
                   <p className="text-sm text-gris leading-relaxed mb-4">
-                    &quot;{o.text}&quot;
+                    &ldquo;{o.text}&rdquo;
                   </p>
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 bg-pcl rounded-full flex items-center justify-center">
-                      <span className="text-primario font-bold text-sm">
-                        {o.name.charAt(0)}
-                      </span>
+                      <span className="text-primario font-bold text-sm">{o.name.charAt(0)}</span>
                     </div>
                     <div>
-                      <p className="text-sm font-semibold text-oscuro">
-                        {o.name}
-                      </p>
+                      <p className="text-sm font-semibold text-oscuro">{o.name}</p>
                       <p className="text-xs text-gris">
                         {new Date(o.date).toLocaleDateString('es-AR', {
                           month: 'long',
@@ -471,37 +428,23 @@ export default function Home() {
         <section className="py-16 md:py-20">
           <div className="max-w-7xl mx-auto px-4">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-              <div className="animate-rv">
+              <div className="reveal">
                 <p className="form-label text-pm mb-1">Hablemos</p>
                 <h2 className="text-3xl md:text-[32px] font-bold text-oscuro mb-6">
                   Contactanos
                 </h2>
                 <div className="space-y-5">
                   {[
-                    {
-                      branch: 'Sucursal Ciudadela',
-                      address: 'Av. Rivadavia 12500, Ciudadela',
-                      phone: '011 4655-1234',
-                    },
-                    {
-                      branch: 'Sucursal Morón',
-                      address: 'Av. Rivadavia 16800, Morón',
-                      phone: '011 4627-5678',
-                    },
-                    {
-                      branch: 'Sucursal Ramos Mejía',
-                      address: 'Av. Rivadavia 14200, Ramos Mejía',
-                      phone: '011 4653-9012',
-                    },
+                    { branch: 'Sucursal Ciudadela', address: 'Av. Rivadavia 12500, Ciudadela', phone: '011 4655-1234' },
+                    { branch: 'Sucursal Morón', address: 'Av. Rivadavia 16800, Morón', phone: '011 4627-5678' },
+                    { branch: 'Sucursal Ramos Mejía', address: 'Av. Rivadavia 14200, Ramos Mejía', phone: '011 4653-9012' },
                   ].map((s) => (
                     <div key={s.branch} className="flex gap-4">
                       <div className="w-10 h-10 bg-pcl rounded-lg flex items-center justify-center shrink-0">
                         <i className="fa-solid fa-building text-primario"></i>
                       </div>
                       <div>
-                        <p className="text-sm font-semibold text-oscuro">
-                          {s.branch}
-                        </p>
+                        <p className="text-sm font-semibold text-oscuro">{s.branch}</p>
                         <p className="text-sm text-gris">{s.address}</p>
                         <p className="text-sm text-gris">{s.phone}</p>
                       </div>
@@ -509,7 +452,7 @@ export default function Home() {
                   ))}
                 </div>
               </div>
-              <div className="animate-rv">
+              <div className="reveal" style={{ transitionDelay: '150ms' }}>
                 <ContactForm />
               </div>
             </div>
@@ -522,9 +465,36 @@ export default function Home() {
   );
 }
 
+function AnimatedCounter({ value, suffix, label }: { value: number; suffix: string; label: string }) {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    let current = 0;
+    const step = Math.max(1, Math.ceil(value / 40));
+    const interval = setInterval(() => {
+      current += step;
+      if (current >= value) {
+        current = value;
+        clearInterval(interval);
+      }
+      setCount(current);
+    }, 30);
+    return () => clearInterval(interval);
+  }, [value]);
+
+  return (
+    <div>
+      <p className="text-2xl font-extrabold">
+        {count.toLocaleString('es-AR')}{suffix}
+      </p>
+      <p className="text-xs opacity-75">{label}</p>
+    </div>
+  );
+}
+
 function PropertyCard({ property }: { property: typeof PROPERTIES[0] }) {
   return (
-    <article className="bg-white rounded-xl border border-borde overflow-hidden card-hover img-zoom">
+    <article className="reveal bg-white rounded-xl border border-borde overflow-hidden card-hover img-zoom">
       <div className="relative aspect-[4/3]">
         <Image
           src={property.images[0]}
@@ -534,9 +504,7 @@ function PropertyCard({ property }: { property: typeof PROPERTIES[0] }) {
           height={300}
         />
         {property.reserved && (
-          <span className="badge-reserved absolute top-3 left-3">
-            Reservado
-          </span>
+          <span className="badge-reserved absolute top-3 left-3">Reservado</span>
         )}
         <span className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-[11px] font-semibold text-gris px-2 py-1 rounded">
           {property.id}
@@ -602,7 +570,7 @@ function PropertyCard({ property }: { property: typeof PROPERTIES[0] }) {
 
 function DevelopmentCard({ development }: { development: typeof DEVELOPMENTS[0] }) {
   return (
-    <article className="bg-white rounded-xl border border-borde overflow-hidden card-hover img-zoom">
+    <article className="reveal bg-white rounded-xl border border-borde overflow-hidden card-hover img-zoom">
       <div className="relative aspect-[4/3]">
         <Image
           src={development.images[0]}
@@ -616,9 +584,7 @@ function DevelopmentCard({ development }: { development: typeof DEVELOPMENTS[0] 
         </span>
       </div>
       <div className="p-5">
-        <h3 className="text-lg font-bold text-oscuro mb-1">
-          {development.name}
-        </h3>
+        <h3 className="text-lg font-bold text-oscuro mb-1">{development.name}</h3>
         <p className="text-sm text-gris mb-3">
           <i className="fa-solid fa-location-dot mr-1"></i>
           {development.address}
@@ -636,7 +602,7 @@ function DevelopmentCard({ development }: { development: typeof DEVELOPMENTS[0] 
           </div>
           <div className="w-full h-2 bg-gcl rounded-full overflow-hidden">
             <div
-              className="h-full bg-acento rounded-full"
+              className="h-full bg-acento rounded-full transition-all duration-700"
               style={{ width: `${development.progress}%` }}
             ></div>
           </div>

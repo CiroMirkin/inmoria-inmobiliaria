@@ -359,13 +359,13 @@ export function Footer() {
                 <button type="button" className="chip active !border-white/30 !bg-white/20 !text-white">
                   Todo
                 </button>
-                <button type="button" className="chip !border-white/30 !text-white/70">
+                <button type="button" className="chip">
                   Alquiler
                 </button>
-                <button type="button" className="chip !border-white/30 !text-white/70">
+                <button type="button" className="chip">
                   Venta
                 </button>
-                <button type="button" className="chip !border-white/30 !text-white/70">
+                <button type="button" className="chip">
                   Emprend.
                 </button>
               </div>
