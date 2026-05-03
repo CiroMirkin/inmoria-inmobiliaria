@@ -5,7 +5,7 @@ import { PROPERTIES, formatPrice, getSlug } from '@/lib/data';
 export function PropertyCard({ property }: { property: typeof PROPERTIES[0] }) {
   return (
     <article className="reveal bg-white rounded-xl border border-borde overflow-hidden card-hover">
-      <div className="relative aspect-[4/3] img-zoom">
+      <div className="relative aspect-4/3 img-zoom">
         <Image
           src={property.images[0]}
           alt={`${property.type} en ${property.location}`}

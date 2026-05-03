@@ -21,13 +21,13 @@ export default function PropiedadesContent() {
   const [filters, setFilters] = useState({
     operation: searchParams.get('op') || '',
     type: searchParams.get('tipo') || '',
+    zone: searchParams.get('zona') || '',
     rooms: searchParams.get('amb') || '',
     location: searchParams.get('localidad') || '',
     currency: searchParams.get('moneda') || '',
-    priceFrom: searchParams.get('preciodesde') || '',
-    priceTo: searchParams.get('preciohasta') || '',
-    address: searchParams.get('direccion') || '',
-    code: searchParams.get('codigo') || '',
+    priceMax: searchParams.get('preciohasta') || '',
+    address: '',
+    code: '',
   });
 
   const [showFilters, setShowFilters] = useState(false);
@@ -42,21 +42,17 @@ export default function PropiedadesContent() {
     }
     if (filters.location && p.location !== filters.location) return false;
     if (filters.currency && p.currency !== filters.currency) return false;
-    if (filters.priceFrom && p.price < parseInt(filters.priceFrom)) return false;
-    if (filters.priceTo && p.price > parseInt(filters.priceTo)) return false;
-    if (
-      filters.address &&
-      !p.address.toLowerCase().includes(filters.address.toLowerCase())
-    )
-      return false;
-    if (filters.code && !p.id.includes(filters.code)) return false;
+    if (filters.priceMax && p.price > parseInt(filters.priceMax)) return false;
+    if (filters.address && !p.address.toLowerCase().includes(filters.address.toLowerCase())) return false;
     return true;
   });
 
   const applyFilters = () => {
     const params = new URLSearchParams();
     Object.entries(filters).forEach(([key, value]) => {
-      if (value) params.set(key, value);
+      if (value && key !== 'address' && key !== 'code') {
+        params.set(key, value);
+      }
     });
     router.push(`/propiedades?${params.toString()}`);
     setShowFilters(false);
@@ -66,11 +62,11 @@ export default function PropiedadesContent() {
     setFilters({
       operation: '',
       type: '',
+      zone: '',
       rooms: '',
       location: '',
       currency: '',
-      priceFrom: '',
-      priceTo: '',
+      priceMax: '',
       address: '',
       code: '',
     });
@@ -200,26 +196,14 @@ export default function PropiedadesContent() {
 
                 <div className="grid grid-cols-2 gap-2">
                   <div>
-                    <label className="form-label">Precio desde</label>
+                    <label className="form-label">Precio máximo</label>
                     <input
                       type="number"
                       className="form-input text-sm"
-                      placeholder="0"
-                      value={filters.priceFrom}
+                      placeholder="Ej: 200000"
+                      value={filters.priceMax}
                       onChange={(e) =>
-                        setFilters({ ...filters, priceFrom: e.target.value })
-                      }
-                    />
-                  </div>
-                  <div>
-                    <label className="form-label">Precio hasta</label>
-                    <input
-                      type="number"
-                      className="form-input text-sm"
-                      placeholder="0"
-                      value={filters.priceTo}
-                      onChange={(e) =>
-                        setFilters({ ...filters, priceTo: e.target.value })
+                        setFilters({ ...filters, priceMax: e.target.value })
                       }
                     />
                   </div>
@@ -372,24 +356,13 @@ export default function PropiedadesContent() {
             </div>
             <div className="grid grid-cols-2 gap-2">
               <div>
-                <label className="form-label">Precio desde</label>
+                <label className="form-label">Precio máximo</label>
                 <input
                   type="number"
                   className="form-input text-sm"
-                  value={filters.priceFrom}
+                  value={filters.priceMax}
                   onChange={(e) =>
-                    setFilters({ ...filters, priceFrom: e.target.value })
-                  }
-                />
-              </div>
-              <div>
-                <label className="form-label">Precio hasta</label>
-                <input
-                  type="number"
-                  className="form-input text-sm"
-                  value={filters.priceTo}
-                  onChange={(e) =>
-                    setFilters({ ...filters, priceTo: e.target.value })
+                    setFilters({ ...filters, priceMax: e.target.value })
                   }
                 />
               </div>

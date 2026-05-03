@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import {
   PROPERTIES,
@@ -15,16 +16,10 @@ import {
 } from '@/lib/data';
 import { Header, Footer, WhatsAppButton } from '@/components/Header';
 import { PropertyCard } from '@/components/PropertyCard';
+import { HeroSearch } from '@/components/HeroSearch';
 
 export default function Home() {
-  const [searchOp, setSearchOp] = useState('');
-  const [searchType, setSearchType] = useState('');
-  const [searchLoc, setSearchLoc] = useState('');
-  const [searchRooms, setSearchRooms] = useState('');
-  const [searchCurrency, setSearchCurrency] = useState('');
-  const [searchAddress, setSearchAddress] = useState('');
-  const [searchCode, setSearchCode] = useState('');
-
+  const router = useRouter();
   const filteredProperties = PROPERTIES.filter((p) => !p.reserved).slice(0, 6);
   const featuredDevelopments = DEVELOPMENTS.slice(0, 3);
   const recentOpinions = OPINIONS.slice(0, 4);
@@ -45,16 +40,16 @@ export default function Home() {
     return () => observer.disconnect();
   }, []);
 
-  const handleSearch = () => {
+  const handleSearch = (filters: { operation: string; type: string; zone: string; location: string; rooms: string; currency: string; priceMax: string }) => {
     const params = new URLSearchParams();
-    if (searchOp) params.set('op', searchOp);
-    if (searchType) params.set('tipo', searchType);
-    if (searchLoc) params.set('localidad', searchLoc);
-    if (searchRooms) params.set('amb', searchRooms);
-    if (searchCurrency) params.set('moneda', searchCurrency);
-    if (searchAddress) params.set('direccion', searchAddress);
-    if (searchCode) params.set('codigo', searchCode);
-    window.location.href = `/propiedades?${params.toString()}`;
+    if (filters.operation) params.set('op', filters.operation);
+    if (filters.type) params.set('tipo', filters.type);
+    if (filters.zone) params.set('zona', filters.zone);
+    if (filters.location) params.set('localidad', filters.location);
+    if (filters.rooms) params.set('amb', filters.rooms);
+    if (filters.currency) params.set('moneda', filters.currency);
+    if (filters.priceMax) params.set('preciohasta', filters.priceMax);
+    router.push(`/propiedades?${params.toString()}`);
   };
 
   return (
@@ -88,117 +83,7 @@ export default function Home() {
               </div>
             </div>
             {/* Search box */}
-            <div className="bg-white rounded-2xl shadow-2xl p-5 md:p-6 max-w-5xl">
-              <div className="flex gap-1 mb-0 flex-wrap">
-                <button
-                  className={`tab-btn ${searchOp === '' ? 'active' : ''}`}
-                  onClick={() => setSearchOp('')}
-                >
-                  Comprar
-                </button>
-                <button
-                  className={`tab-btn ${searchOp === 'Alquiler' ? 'active' : ''}`}
-                  onClick={() => setSearchOp('Alquiler')}
-                >
-                  Alquilar
-                </button>
-                <button
-                  className={`tab-btn ${searchOp === 'Temporario' ? 'active' : ''}`}
-                  onClick={() => setSearchOp('Temporario')}
-                >
-                  Temporario
-                </button>
-              </div>
-              <div className="border border-t-0 border-borde rounded-b-xl p-4 md:p-5">
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mb-3">
-                  <div>
-                    <label className="form-label">Tipo</label>
-                    <select
-                      className="form-input text-sm"
-                      value={searchType}
-                      onChange={(e) => setSearchType(e.target.value)}
-                    >
-                      <option value="">Todos</option>
-                      {PROPERTY_TYPES.map((t) => (
-                        <option key={t} value={t}>{t}</option>
-                      ))}
-                    </select>
-                  </div>
-                  <div>
-                    <label className="form-label">Localidad</label>
-                    <select
-                      className="form-input text-sm"
-                      value={searchLoc}
-                      onChange={(e) => setSearchLoc(e.target.value)}
-                    >
-                      <option value="">Todas</option>
-                      {LOCATIONS.map((l) => (
-                        <option key={l} value={l}>{l}</option>
-                      ))}
-                    </select>
-                  </div>
-                  <div>
-                    <label className="form-label">Ambientes</label>
-                    <select
-                      className="form-input text-sm"
-                      value={searchRooms}
-                      onChange={(e) => setSearchRooms(e.target.value)}
-                    >
-                      <option value="">Todos</option>
-                      <option>1</option>
-                      <option>2</option>
-                      <option>3</option>
-                      <option>4</option>
-                      <option value="5">+4</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label className="form-label">Moneda</label>
-                    <select
-                      className="form-input text-sm"
-                      value={searchCurrency}
-                      onChange={(e) => setSearchCurrency(e.target.value)}
-                    >
-                      <option value="">Todas</option>
-                      <option value="ARS">ARS</option>
-                      <option value="USD">USD</option>
-                    </select>
-                  </div>
-                </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
-                  <div>
-                    <label className="form-label">
-                      <i className="fa-solid fa-map-pin mr-1"></i>Dirección
-                    </label>
-                    <input
-                      type="text"
-                      className="form-input text-sm"
-                      placeholder="Ej: Av. Rivadavia 12000"
-                      value={searchAddress}
-                      onChange={(e) => setSearchAddress(e.target.value)}
-                    />
-                  </div>
-                  <div>
-                    <label className="form-label">
-                      <i className="fa-solid fa-hashtag mr-1"></i>Código ref.
-                    </label>
-                    <input
-                      type="text"
-                      className="form-input text-sm"
-                      placeholder="Ej: 001234"
-                      value={searchCode}
-                      onChange={(e) => setSearchCode(e.target.value)}
-                    />
-                  </div>
-                </div>
-                <button
-                  className="btn-primary w-full justify-center py-3 text-base"
-                  onClick={handleSearch}
-                >
-                  <i className="fa-solid fa-magnifying-glass"></i>Buscar propiedades
-                </button>
-              </div>
-            </div>
+              <HeroSearch onSearch={handleSearch} />
           </div>
         </section>
 
