@@ -2,32 +2,24 @@
 
 import Image from 'next/image';
 import { DEVELOPMENTS } from '@/lib/data';
-import { Header, Footer, WhatsAppButton } from '@/components/Header';
 
 export default function Emprendimientos() {
   return (
-    <>
-      <Header />
-      <main id="contenido" role="main">
-        <div className="max-w-7xl mx-auto px-4 py-8">
-          <div className="mb-10">
-            <h1 className="text-3xl md:text-4xl font-bold text-oscuro mb-2">
-              Emprendimientos inmobiliarios
-            </h1>
-            <p className="text-gris">
-              Invertí en obra nueva en las mejores ubicaciones de Zona Oeste.
-            </p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-7">
-            {DEVELOPMENTS.map((e) => (
-              <DevelopmentCard key={e.id} development={e} />
-            ))}
-          </div>
-        </div>
-      </main>
-      <Footer />
-      <WhatsAppButton />
-    </>
+    <div className="max-w-7xl mx-auto px-4 py-8">
+      <div className="mb-10">
+        <h1 className="text-3xl md:text-4xl font-bold text-oscuro mb-2">
+          Emprendimientos inmobiliarios
+        </h1>
+        <p className="text-gris">
+          Invertí en obra nueva en las mejores ubicaciones de Zona Oeste.
+        </p>
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-7">
+        {DEVELOPMENTS.map((e) => (
+          <DevelopmentCard key={e.id} development={e} />
+        ))}
+      </div>
+    </div>
   );
 }
 

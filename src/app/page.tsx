@@ -14,7 +14,6 @@ import {
   formatPrice,
   getSlug,
 } from '@/lib/data';
-import { Header, Footer, WhatsAppButton } from '@/components/Header';
 import { PropertyCard } from '@/components/PropertyCard';
 import { HeroSearch } from '@/components/HeroSearch';
 
@@ -54,7 +53,6 @@ export default function Home() {
 
   return (
     <>
-      <Header />
       <main id="contenido" role="main">
         {/* Hero */}
         <section className="hero-bg min-h-[85vh] flex items-center">
@@ -189,7 +187,7 @@ export default function Home() {
                     width={700}
                     height={500}
                   />
-                  <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-oscuro/80 to-transparent p-6">
+                  <div className="absolute bottom-0 inset-x-0 bg-linear-to-t from-oscuro/80 to-transparent p-6">
                     <div className="grid grid-cols-3 gap-4 text-center text-white">
                       <AnimatedCounter value={25} suffix="+" label="Años" />
                       <AnimatedCounter value={3500} suffix="+" label="Operaciones" />
@@ -345,8 +343,6 @@ export default function Home() {
           </div>
         </section>
       </main>
-      <Footer />
-      <WhatsAppButton />
     </>
   );
 }
@@ -381,7 +377,7 @@ function AnimatedCounter({ value, suffix, label }: { value: number; suffix: stri
 function DevelopmentCard({ development }: { development: typeof DEVELOPMENTS[0] }) {
   return (
     <article className="reveal bg-white rounded-xl border border-borde overflow-hidden card-hover img-zoom">
-      <div className="relative aspect-[4/3]">
+      <div className="relative aspect-4/3">
         <Image
           src={development.images[0]}
           alt={development.name}

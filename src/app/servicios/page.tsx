@@ -1,7 +1,5 @@
 'use client';
 
-import { Header, Footer, WhatsAppButton } from '@/components/Header';
-
 export default function Servicios() {
   const services = [
     {
@@ -38,7 +36,6 @@ export default function Servicios() {
 
   return (
     <>
-      <Header />
       <main id="contenido" role="main">
         <div className="max-w-4xl mx-auto px-4 py-8">
           <div className="text-center mb-12">
@@ -111,8 +108,6 @@ export default function Servicios() {
           </div>
         </div>
       </main>
-      <Footer />
-      <WhatsAppButton />
     </>
   );
 }

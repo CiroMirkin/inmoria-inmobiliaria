@@ -5,7 +5,6 @@ import Image from 'next/image';
 import { useParams } from 'next/navigation';
 import { useState } from 'react';
 import { PROPERTIES, formatPrice } from '@/lib/data';
-import { Header, Footer, WhatsAppButton } from '@/components/Header';
 
 export default function FichaPropiedad() {
   const params = useParams();
@@ -19,7 +18,6 @@ export default function FichaPropiedad() {
   if (!property) {
     return (
       <>
-        <Header />
         <main id="contenido" className="min-h-screen">
           <div className="text-center py-32">
             <h1 className="text-2xl font-bold mb-4">Propiedad no encontrada</h1>
@@ -28,8 +26,6 @@ export default function FichaPropiedad() {
             </Link>
           </div>
         </main>
-        <Footer />
-        <WhatsAppButton />
       </>
     );
   }
@@ -46,7 +42,6 @@ export default function FichaPropiedad() {
 
   return (
     <>
-      <Header />
       <main id="contenido" role="main">
         <div className="max-w-7xl mx-auto px-4 py-8">
           <nav className="text-sm text-gris mb-6">
@@ -261,8 +256,6 @@ export default function FichaPropiedad() {
           </div>
         </div>
       </main>
-      <Footer />
-      <WhatsAppButton />
     </>
   );
 }

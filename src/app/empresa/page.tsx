@@ -2,23 +2,19 @@
 
 import Image from 'next/image';
 import { SUCURSALES, LOCATIONS } from '@/lib/data';
-import { Header, Footer, WhatsAppButton } from '@/components/Header';
 
 export default function Empresa() {
   return (
-    <>
-      <Header />
-      <main id="contenido" role="main">
-        <div className="max-w-4xl mx-auto px-4 py-8">
-          <div className="text-center mb-12">
-            <p className="form-label text-pm mb-1">Desde 2001</p>
-            <h1 className="text-3xl md:text-4xl font-bold text-oscuro mb-3">
-              Sobre Inmoria
-            </h1>
-            <p className="text-gris">
-              Tradición, profesionalismo y confianza en cada operación.
-            </p>
-          </div>
+    <div className="max-w-4xl mx-auto px-4 py-8">
+      <div className="text-center mb-12">
+        <p className="form-label text-pm mb-1">Desde 2001</p>
+        <h1 className="text-3xl md:text-4xl font-bold text-oscuro mb-3">
+          Sobre Inmoria
+        </h1>
+        <p className="text-gris">
+          Tradición, profesionalismo y confianza en cada operación.
+        </p>
+      </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
             <div className="rounded-2xl overflow-hidden">
@@ -134,9 +130,5 @@ export default function Empresa() {
             </div>
           </div>
         </div>
-      </main>
-      <Footer />
-      <WhatsAppButton />
-    </>
   );
 }

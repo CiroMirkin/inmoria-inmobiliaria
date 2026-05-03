@@ -1,13 +1,8 @@
 'use client';
 
-import { Header, Footer, WhatsAppButton } from '@/components/Header';
-
 export default function Privacidad() {
   return (
-    <>
-      <Header />
-      <main id="contenido" role="main">
-        <div className="max-w-3xl mx-auto px-4 py-8">
+    <div className="max-w-3xl mx-auto px-4 py-8">
           <div className="text-center mb-10">
             <h1 className="text-3xl md:text-4xl font-bold text-oscuro mb-3">
               Política de Privacidad
@@ -143,9 +138,6 @@ export default function Privacidad() {
             </div>
           </div>
         </div>
-      </main>
-      <Footer />
-      <WhatsAppButton />
-    </>
+    </div>
   );
 }

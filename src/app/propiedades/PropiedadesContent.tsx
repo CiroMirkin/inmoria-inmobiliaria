@@ -12,7 +12,6 @@ import {
   formatPrice,
   getSlug,
 } from '@/lib/data';
-import { Header, Footer, WhatsAppButton } from '@/components/Header';
 
 export default function PropiedadesContent() {
   const searchParams = useSearchParams();
@@ -74,7 +73,6 @@ export default function PropiedadesContent() {
 
   return (
     <>
-      <Header />
       <main id="contenido" role="main">
         <div className="max-w-7xl mx-auto px-4 py-8">
           <div className="mb-8">
@@ -250,7 +248,7 @@ export default function PropiedadesContent() {
 
             {/* Properties grid */}
             <div className="flex-1 min-w-0">
-              <div className="flex items-center justify-between mb-4 gap-3">
+              <div className="lg:hidden flex items-center justify-between mb-4 gap-3">
                 <button
                   onClick={() => setShowFilters(true)}
                   className="btn-primary text-sm py-2 lg:hidden"
@@ -398,8 +396,6 @@ export default function PropiedadesContent() {
           </div>
         </div>
       </main>
-      <Footer />
-      <WhatsAppButton />
     </>
   );
 }
