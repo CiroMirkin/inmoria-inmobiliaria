@@ -5,15 +5,30 @@ import { OPINIONS } from '@/lib/data';
 
 export default function Opiniones() {
   const [rating, setRating] = useState(0);
+  const [formData, setFormData] = useState({
+      nombre: '',
+      texto: '',
+    });
 
+    const handleSubmit = (e: React.FormEvent) => {
+      e.preventDefault();
+      if (rating === 0) {
+        alert('Seleccioná una valoración');
+        return;
+      }
+      alert('Opinión enviada. Será publicada tras moderación.');
+      setFormData({ nombre: '', texto: '' });
+      setRating(0);
+    };
   return (
-    <div className="max-w-4xl mx-auto px-4 py-8">
+    <div className="max-w-3xl mx-auto px-4 py-8">
       <div className="text-center mb-10">
+        <p className="form-label text-pm mb-1">Lo que dicen de nosotros</p>
         <h1 className="text-3xl md:text-4xl font-bold text-oscuro mb-3">
           Opiniones de clientes
         </h1>
         <p className="text-gris">
-          Con más de 25 años, hemos ayudado a miles de familias a encontrar su hogar.
+          Las opiniones reflejan la experiencia real de quienes confiaron en nosotros.
         </p>
       </div>
 
@@ -124,6 +139,5 @@ export default function Opiniones() {
             </form>
           </div>
         </div>
-    </div>
   );
 }
