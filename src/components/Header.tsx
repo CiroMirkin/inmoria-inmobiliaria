@@ -15,6 +15,8 @@ export { Footer, WhatsAppButton };
 export function Header() {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  // Estado para controlar el acordeón de propiedades en mobile
+  const [propiedadesOpen, setPropiedadesOpen] = useState(false);
 
   const isActive = (path: string) => {
     return pathname === path || pathname.startsWith(path + '/');
@@ -45,8 +47,9 @@ export function Header() {
               Inmoria
             </span>
           </Link>
+          
           <nav
-            className="hidden lg:flex items-center gap-6"
+            className="hidden lg:flex items-center gap-6 ml-auto"
             aria-label="Navegación principal"
           >
             <Link href="/" className={`nav-link text-sm ${isActive('/') && 'active'}`}>
@@ -111,7 +114,8 @@ export function Header() {
               Contacto
             </Link>
           </nav>
-          <div className="flex items-center gap-3">
+
+          <div className="flex items-center gap-3 lg:ml-6">
             <button
               id="mt"
               className="lg:hidden w-10 h-10 flex items-center justify-center text-oscuro"
@@ -123,6 +127,7 @@ export function Header() {
           </div>
         </div>
       </header>
+
       {/* Mobile menu */}
       <div
         className={`mobile-overlay ${mobileMenuOpen ? 'open' : ''}`}
@@ -151,36 +156,51 @@ export function Header() {
           >
             Inicio
           </Link>
-          <Link
-            href="/propiedades"
-            className="block px-3 py-3 font-medium rounded-lg hover:bg-gcl transition-colors"
-            onClick={() => setMobileMenuOpen(false)}
-          >
-            Propiedades
-          </Link>
-          <div className="pl-6 flex flex-col gap-1">
-            <Link
-              href="/propiedades?op=Alquiler"
-              className="block px-3 py-2 text-sm text-gris rounded-lg hover:bg-gcl transition-colors"
-              onClick={() => setMobileMenuOpen(false)}
+          
+          {/* SECCIÓN PROPIEDADES MOBILE (CON SELECT/ACORDEÓN) */}
+          <div>
+            <button
+              onClick={() => setPropiedadesOpen(!propiedadesOpen)}
+              className="w-full flex justify-between items-center px-3 py-3 font-medium rounded-lg hover:bg-gcl transition-colors"
             >
-              Alquiler
-            </Link>
-            <Link
-              href="/propiedades?op=Venta"
-              className="block px-3 py-2 text-sm text-gris rounded-lg hover:bg-gcl transition-colors"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Venta
-            </Link>
-            <Link
-              href="/propiedades?op=Temporario"
-              className="block px-3 py-2 text-sm text-gris rounded-lg hover:bg-gcl transition-colors"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Temporario
-            </Link>
+              Propiedades
+              <i className={`fa-solid fa-chevron-${propiedadesOpen ? 'up' : 'down'} text-xs`}></i>
+            </button>
+            
+            {propiedadesOpen && (
+              <div className="pl-6 flex flex-col gap-1">
+                <Link
+                  href="/propiedades"
+                  className="block px-3 py-2 text-sm text-gris rounded-lg hover:bg-gcl transition-colors"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Todas
+                </Link>
+                <Link
+                  href="/propiedades?op=Alquiler"
+                  className="block px-3 py-2 text-sm text-gris rounded-lg hover:bg-gcl transition-colors"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Alquiler
+                </Link>
+                <Link
+                  href="/propiedades?op=Venta"
+                  className="block px-3 py-2 text-sm text-gris rounded-lg hover:bg-gcl transition-colors"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Venta
+                </Link>
+                <Link
+                  href="/propiedades?op=Temporario"
+                  className="block px-3 py-2 text-sm text-gris rounded-lg hover:bg-gcl transition-colors"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Temporario
+                </Link>
+              </div>
+            )}
           </div>
+
           <Link
             href="/tasaciones"
             className="block px-3 py-3 font-medium rounded-lg hover:bg-gcl transition-colors"
@@ -224,6 +244,7 @@ export function Header() {
             Turnos
           </Link>
         </nav>
+        
         <div className="mt-6 pt-5 border-t border-borde">
           <Link
             href={`https://wa.me/5491146551234?text=${encodeURIComponent(WHATSAPP_MSG)}`}
@@ -233,14 +254,6 @@ export function Header() {
           >
             <i className="fa-brands fa-whatsapp text-lg"></i> WhatsApp
           </Link>
-          <div className="mt-3 space-y-1.5 text-sm text-gris">
-            <p>
-              <i className="fa-solid fa-phone mr-2"></i>011 4655-1234
-            </p>
-            <p>
-              <i className="fa-solid fa-envelope mr-2"></i>info@inmoria.com
-            </p>
-          </div>
         </div>
       </div>
     </>
