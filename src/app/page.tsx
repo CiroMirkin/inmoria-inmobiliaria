@@ -3,31 +3,25 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
-import {
-  PROPERTIES,
-  OPINIONS,
-  LOCATIONS,
-} from '@/lib/data';
+import { PROPERTIES, OPINIONS, LOCATIONS } from '@/lib/data';
 import { PropertyCard } from '@/components/PropertyCard';
 import Hero from '@/components/Hero';
+import Reveal from '@/components/Reveal';
 
 export default function Home() {
   const filteredProperties = PROPERTIES.filter((p) => !p.reserved).slice(0, 6);
   const recentOpinions = OPINIONS.slice(0, 4);
 
   return (
-    <>
-      <main id="contenido" role="main">
-        <Hero />
+    <main id="contenido" role="main">
+      <Hero />
 
-        {/* Featured Properties */}
-        <section className="py-16 md:py-20">
-          <div className="max-w-7xl mx-auto px-4">
-            <div className=" flex items-end justify-between mb-10">
+      <section className="py-16 md:py-20">
+        <div className="max-w-7xl mx-auto px-4">
+          <Reveal>
+            <div className="flex items-end justify-between mb-10">
               <div>
-                <p className="form-label text-pm mb-1">
-                  Oportunidades seleccionadas
-                </p>
+                <p className="form-label text-pm mb-1">Oportunidades seleccionadas</p>
                 <h2 className="text-3xl md:text-[32px] font-bold text-oscuro">
                   Propiedades destacadas
                 </h2>
@@ -36,57 +30,59 @@ export default function Home() {
                 Ver todas <i className="fa-solid fa-arrow-right"></i>
               </Link>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filteredProperties.map((p) => (
-                <PropertyCard key={p.id} property={p} />
-              ))}
-            </div>
-            <div className="text-center mt-8 md:hidden">
-              <Link href="/propiedades" className="btn-outline">
-                Ver todas <i className="fa-solid fa-arrow-right"></i>
-              </Link>
-            </div>
+          </Reveal>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredProperties.map((p, i) => (
+              <Reveal key={p.id} delay={i * 0.07}>
+                <PropertyCard property={p} />
+              </Reveal>
+            ))}
           </div>
-        </section>
+          <div className="text-center mt-8 md:hidden">
+            <Link href="/propiedades" className="btn-outline">
+              Ver todas <i className="fa-solid fa-arrow-right"></i>
+            </Link>
+          </div>
+        </div>
+      </section>
 
-        {/* Services */}
-        <section className="py-16 md:py-20 bg-gcl">
-          <div className="max-w-7xl mx-auto px-4">
-            <div className=" text-center mb-12">
+      <section className="py-16 md:py-20 bg-gcl">
+        <div className="max-w-7xl mx-auto px-4">
+          <Reveal>
+            <div className="text-center mb-12">
               <p className="form-label text-pm mb-1">Lo que hacemos</p>
               <h2 className="text-3xl md:text-[32px] font-bold text-oscuro">
                 Nuestros servicios
               </h2>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {[
-                { icon: 'fa-handshake', title: 'Compra y Venta', desc: 'Acompañamiento completo en la compraventa con asistencia legal y documental.' },
-                { icon: 'fa-key', title: 'Alquiler', desc: 'Gestión integral: búsqueda, contratos, garantías y seguimiento post-alquiler.' },
-                { icon: 'fa-calendar-days', title: 'Temporario', desc: 'Propiedades amuebladas listas para habitar, ideales para estadías cortas.' },
-                { icon: 'fa-calculator', title: 'Tasaciones', desc: 'Tasación presencial y gratuita por matriculado con informe detallado.' },
-                { icon: 'fa-clipboard-list', title: 'Administración', desc: 'Administración profesional: cobros, inspecciones, mantenimiento.' },
-              ].map((service, i) => (
-                <div
-                  key={service.title}
-                  className=" bg-white rounded-xl p-6 border border-borde card-hover"
-                  style={{ transitionDelay: `${i * 70}ms` }}
-                >
+          </Reveal>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[
+              { icon: 'fa-handshake', title: 'Compra y Venta', desc: 'Acompañamiento completo en la compraventa con asistencia legal y documental.' },
+              { icon: 'fa-key', title: 'Alquiler', desc: 'Gestión integral: búsqueda, contratos, garantías y seguimiento post-alquiler.' },
+              { icon: 'fa-calendar-days', title: 'Temporario', desc: 'Propiedades amuebladas listas para habitar, ideales para estadías cortas.' },
+              { icon: 'fa-calculator', title: 'Tasaciones', desc: 'Tasación presencial y gratuita por matriculado con informe detallado.' },
+              { icon: 'fa-clipboard-list', title: 'Administración', desc: 'Administración profesional: cobros, inspecciones, mantenimiento.' },
+            ].map((service, i) => (
+              <Reveal key={service.title} delay={i * 0.07}>
+                <div className="bg-white rounded-xl p-6 border border-borde card-hover h-full">
                   <div className="w-12 h-12 bg-pcl rounded-lg flex items-center justify-center mb-4">
                     <i className={`fa-solid ${service.icon} text-primario text-xl`}></i>
                   </div>
                   <h3 className="text-lg font-bold text-oscuro mb-2">{service.title}</h3>
                   <p className="text-sm text-gris leading-relaxed">{service.desc}</p>
                 </div>
-              ))}
-            </div>
+              </Reveal>
+            ))}
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* About */}
-        <section className="py-16 md:py-20">
-          <div className="max-w-7xl mx-auto px-4">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              <div className="">
+      <section className="py-16 md:py-20">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <Reveal>
+              <div>
                 <p className="form-label text-pm mb-1">Sobre nosotros</p>
                 <h2 className="text-3xl md:text-[32px] font-bold text-oscuro mb-6">
                   Más de 25 años en Zona Oeste
@@ -112,32 +108,33 @@ export default function Home() {
                   Conoce más <i className="fa-solid fa-arrow-right"></i>
                 </Link>
               </div>
-              <div className="" style={{ transitionDelay: '150ms' }}>
-                <div className="relative rounded-2xl overflow-hidden shadow-xl">
-                  <Image
-                    src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=700&h=500&fit=crop&q=80"
-                    alt="Oficina Inmoria"
-                    className="w-full h-auto"
-                    width={700}
-                    height={500}
-                  />
-                  <div className="absolute bottom-0 inset-x-0 bg-linear-to-t from-oscuro/80 to-transparent p-6">
-                    <div className="grid grid-cols-3 gap-4 text-center text-white">
-                      <AnimatedCounter value={25} suffix="+" label="Años" />
-                      <AnimatedCounter value={3500} suffix="+" label="Operaciones" />
-                      <AnimatedCounter value={7} suffix="" label="Localidades" />
-                    </div>
+            </Reveal>
+            <Reveal delay={0.15}>
+              <div className="relative rounded-2xl overflow-hidden shadow-xl">
+                <Image
+                  src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=700&h=500&fit=crop&q=80"
+                  alt="Oficina Inmoria"
+                  className="w-full h-auto"
+                  width={700}
+                  height={500}
+                />
+                <div className="absolute bottom-0 inset-x-0 bg-linear-to-t from-oscuro/80 to-transparent p-6">
+                  <div className="grid grid-cols-3 gap-4 text-center text-white">
+                    <AnimatedCounter value={25} suffix="+" label="Años" />
+                    <AnimatedCounter value={3500} suffix="+" label="Operaciones" />
+                    <AnimatedCounter value={7} suffix="" label="Localidades" />
                   </div>
                 </div>
               </div>
-            </div>
+            </Reveal>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* CTA - Tasaciones */}
-        <section className="py-16 md:py-20">
-          <div className="max-w-7xl mx-auto px-4">
-            <div className=" bg-primario rounded-2xl p-8 md:p-12 flex flex-col md:flex-row items-center gap-8">
+      <section className="py-16 md:py-20">
+        <div className="max-w-7xl mx-auto px-4">
+          <Reveal>
+            <div className="bg-primario rounded-2xl p-8 md:p-12 flex flex-col md:flex-row items-center gap-8">
               <div className="flex-1">
                 <h2 className="text-2xl md:text-3xl font-bold text-white mb-3">
                   Tasá tu propiedad sin costo
@@ -164,36 +161,30 @@ export default function Home() {
                 </Link>
               </div>
             </div>
-          </div>
-        </section>
+          </Reveal>
+        </div>
+      </section>
 
-        {/* Opinions */}
-        <section className="py-16 md:py-20 bg-gcl">
-          <div className="max-w-7xl mx-auto px-4">
-            <div className=" text-center mb-12">
-              <p className="form-label text-pm mb-1">
-                Lo que dicen nuestros clientes
-              </p>
+      <section className="py-16 md:py-20 bg-gcl">
+        <div className="max-w-7xl mx-auto px-4">
+          <Reveal>
+            <div className="text-center mb-12">
+              <p className="form-label text-pm mb-1">Lo que dicen nuestros clientes</p>
               <h2 className="text-3xl md:text-[32px] font-bold text-oscuro">
                 Opiniones verificadas
               </h2>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {recentOpinions.map((o) => (
-                <div key={o.id} className=" bg-white rounded-xl p-6 border border-borde card-hover">
+          </Reveal>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {recentOpinions.map((o, i) => (
+              <Reveal key={o.id} delay={i * 0.07}>
+                <div className="bg-white rounded-xl p-6 border border-borde card-hover">
                   <div className="flex items-center gap-1 mb-3">
                     {[1, 2, 3, 4, 5].map((i) => (
-                      <i
-                        key={i}
-                        className={`fa-solid fa-star ${
-                          i <= o.rating ? 'text-amber-500' : 'text-slate-300'
-                        } text-sm`}
-                      ></i>
+                      <i key={i} className={`fa-solid fa-star ${i <= o.rating ? 'text-amber-500' : 'text-slate-300'} text-sm`}></i>
                     ))}
                   </div>
-                  <p className="text-sm text-gris leading-relaxed mb-4">
-                    &ldquo;{o.text}&rdquo;
-                  </p>
+                  <p className="text-sm text-gris leading-relaxed mb-4">&ldquo;{o.text}&rdquo;</p>
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 bg-pcl rounded-full flex items-center justify-center">
                       <span className="text-primario font-bold text-sm">{o.name.charAt(0)}</span>
@@ -201,34 +192,29 @@ export default function Home() {
                     <div>
                       <p className="text-sm font-semibold text-oscuro">{o.name}</p>
                       <p className="text-xs text-gris">
-                        {new Date(o.date).toLocaleDateString('es-AR', {
-                          month: 'long',
-                          year: 'numeric',
-                        })}
+                        {new Date(o.date).toLocaleDateString('es-AR', { month: 'long', year: 'numeric' })}
                       </p>
                     </div>
                   </div>
                 </div>
-              ))}
-            </div>
-            <div className="text-center mt-8">
-              <Link href="/opiniones" className="btn-outline text-sm">
-                Ver todas las opiniones{' '}
-                <i className="fa-solid fa-arrow-right"></i>
-              </Link>
-            </div>
+              </Reveal>
+            ))}
           </div>
-        </section>
+          <div className="text-center mt-8">
+            <Link href="/opiniones" className="btn-outline text-sm">
+              Ver todas las opiniones <i className="fa-solid fa-arrow-right"></i>
+            </Link>
+          </div>
+        </div>
+      </section>
 
-        {/* Contact */}
-        <section className="py-16 md:py-20">
-          <div className="max-w-7xl mx-auto px-4">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-              <div className="">
+      <section className="py-16 md:py-20">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            <Reveal>
+              <div>
                 <p className="form-label text-pm mb-1">Hablemos</p>
-                <h2 className="text-3xl md:text-[32px] font-bold text-oscuro mb-6">
-                  Contactanos
-                </h2>
+                <h2 className="text-3xl md:text-[32px] font-bold text-oscuro mb-6">Contactanos</h2>
                 <div className="space-y-5">
                   {[
                     { branch: 'Sucursal Ciudadela', address: 'Av. Rivadavia 12500, Ciudadela', phone: '011 4655-1234' },
@@ -248,122 +234,77 @@ export default function Home() {
                   ))}
                 </div>
               </div>
-              <div className="" style={{ transitionDelay: '150ms' }}>
-                <ContactForm />
-              </div>
-            </div>
+            </Reveal>
+            <Reveal delay={0.15}>
+              <ContactForm />
+            </Reveal>
           </div>
-        </section>
-      </main>
-    </>
-  );
+        </div>
+      </section>
+    </main>
+  )
 }
 
 function AnimatedCounter({ value, suffix, label }: { value: number; suffix: string; label: string }) {
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(0)
 
   useEffect(() => {
-    let current = 0;
-    const step = Math.max(1, Math.ceil(value / 40));
+    let current = 0
+    const step = Math.max(1, Math.ceil(value / 40))
     const interval = setInterval(() => {
-      current += step;
+      current += step
       if (current >= value) {
-        current = value;
-        clearInterval(interval);
+        current = value
+        clearInterval(interval)
       }
-      setCount(current);
-    }, 30);
-    return () => clearInterval(interval);
-  }, [value]);
+      setCount(current)
+    }, 30)
+    return () => clearInterval(interval)
+  }, [value])
 
   return (
     <div>
-      <p className="text-2xl font-extrabold">
-        {count.toLocaleString('es-AR')}{suffix}
-      </p>
+      <p className="text-2xl font-extrabold">{count.toLocaleString('es-AR')}{suffix}</p>
       <p className="text-xs opacity-75">{label}</p>
     </div>
-  );
+  )
 }
 
 function ContactForm() {
-  const [formData, setFormData] = useState({
-    nombre: '',
-    email: '',
-    telefono: '',
-    asunto: '',
-    mensaje: '',
-  });
+  const [formData, setFormData] = useState({ nombre: '', email: '', telefono: '', asunto: '', mensaje: '' })
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    alert('Consulta enviada correctamente. Nos comunicaremos pronto.');
-  };
+    e.preventDefault()
+    alert('Consulta enviada correctamente. Nos comunicaremos pronto.')
+  }
 
   return (
     <form onSubmit={handleSubmit} className="bg-white rounded-xl border border-borde p-6 space-y-4">
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
           <label className="form-label">Nombre</label>
-          <input
-            type="text"
-            name="nombre"
-            required
-            className="form-input"
-            placeholder="Tu nombre"
-            value={formData.nombre}
-            onChange={(e) => setFormData({ ...formData, nombre: e.target.value })}
-          />
+          <input type="text" name="nombre" required className="form-input" placeholder="Tu nombre" value={formData.nombre} onChange={(e) => setFormData({ ...formData, nombre: e.target.value })} />
         </div>
         <div>
           <label className="form-label">Email</label>
-          <input
-            type="email"
-            name="email"
-            required
-            className="form-input"
-            placeholder="tu@email.com"
-            value={formData.email}
-            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-          />
+          <input type="email" name="email" required className="form-input" placeholder="tu@email.com" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} />
         </div>
       </div>
       <div>
         <label className="form-label">Teléfono</label>
-        <input
-          type="tel"
-          name="telefono"
-          className="form-input"
-          placeholder="11 1234-5678"
-          value={formData.telefono}
-          onChange={(e) => setFormData({ ...formData, telefono: e.target.value })}
-        />
+        <input type="tel" name="telefono" className="form-input" placeholder="11 1234-5678" value={formData.telefono} onChange={(e) => setFormData({ ...formData, telefono: e.target.value })} />
       </div>
       <div>
         <label className="form-label">Asunto</label>
-        <input
-          type="text"
-          name="asunto"
-          className="form-input"
-          placeholder="¿En qué podemos ayudarte?"
-          value={formData.asunto}
-          onChange={(e) => setFormData({ ...formData, asunto: e.target.value })}
-        />
+        <input type="text" name="asunto" className="form-input" placeholder="¿En qué podemos ayudarte?" value={formData.asunto} onChange={(e) => setFormData({ ...formData, asunto: e.target.value })} />
       </div>
       <div>
         <label className="form-label">Mensaje</label>
-        <textarea
-          name="mensaje"
-          rows={3}
-          className="form-input"
-          placeholder="Contanos qué buscás..."
-          value={formData.mensaje}
-          onChange={(e) => setFormData({ ...formData, mensaje: e.target.value })}
-        />
+        <textarea name="mensaje" rows={3} className="form-input" placeholder="Contanos qué buscás..." value={formData.mensaje} onChange={(e) => setFormData({ ...formData, mensaje: e.target.value })} />
       </div>
       <button type="submit" className="btn-primary w-full justify-center py-3">
         Enviar consulta <i className="fa-solid fa-paper-plane"></i>
       </button>
     </form>
-  );
+  )
 }
