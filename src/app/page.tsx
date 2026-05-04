@@ -17,7 +17,9 @@ export default function Home() {
     <main id="contenido" role="main">
       <Hero />
 
-      <section className="py-16 md:py-20">
+      <section className="py-16 md:py-20 bg-[#E0F2F8]" style={{
+        background: `linear-gradient(to bottom, #ffffff, #E8EDF2)`,
+      }}>
         <div className="max-w-7xl mx-auto px-4">
           <Reveal>
             <div className="flex items-end justify-between mb-10">
