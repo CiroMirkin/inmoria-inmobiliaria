@@ -12,7 +12,7 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
           <div>
             <div className="flex items-center gap-2 mb-4">
-              <div className="w-9 h-9 bg-white rounded-lg flex items-center justify-center">
+              <div className="w-9 h-9 flex items-center justify-center">
                 <Image
                   height={50}
                   width={50}
