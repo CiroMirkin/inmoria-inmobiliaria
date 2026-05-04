@@ -37,7 +37,7 @@ export default function Hero() {
           className="absolute inset-0"
           style={{ background: 'linear-gradient(135deg, rgba(27, 79, 138, 0.6), rgba(13, 148, 136, 0.4))' }}
         />
-        <div className="relative z-10 max-w-7xl flex flex-wrap gap-8 mx-auto px-4 w-full py-20">
+        <div className="relative z-10 max-w-9xl flex justify-center flex-wrap gap-8 mx-auto px-4 w-full py-20">
           <div className="max-w-2xl mb-10 flex flex-col justify-between gap-10">
             <div>
               <h1 className="text-4xl md:text-5xl lg:text-[48px] font-extrabold text-white leading-tight mb-4">
