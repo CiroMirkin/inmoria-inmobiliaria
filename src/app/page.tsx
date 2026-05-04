@@ -15,24 +15,6 @@ export default function Home() {
   const filteredProperties = PROPERTIES.filter((p) => !p.reserved).slice(0, 6);
   const recentOpinions = OPINIONS.slice(0, 4);
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
-    );
-    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
-  }, []);
-
-  
-
   return (
     <>
       <main id="contenido" role="main">
@@ -41,7 +23,7 @@ export default function Home() {
         {/* Featured Properties */}
         <section className="py-16 md:py-20">
           <div className="max-w-7xl mx-auto px-4">
-            <div className="reveal flex items-end justify-between mb-10">
+            <div className=" flex items-end justify-between mb-10">
               <div>
                 <p className="form-label text-pm mb-1">
                   Oportunidades seleccionadas
@@ -70,7 +52,7 @@ export default function Home() {
         {/* Services */}
         <section className="py-16 md:py-20 bg-gcl">
           <div className="max-w-7xl mx-auto px-4">
-            <div className="reveal text-center mb-12">
+            <div className=" text-center mb-12">
               <p className="form-label text-pm mb-1">Lo que hacemos</p>
               <h2 className="text-3xl md:text-[32px] font-bold text-oscuro">
                 Nuestros servicios
@@ -86,7 +68,7 @@ export default function Home() {
               ].map((service, i) => (
                 <div
                   key={service.title}
-                  className="reveal bg-white rounded-xl p-6 border border-borde card-hover"
+                  className=" bg-white rounded-xl p-6 border border-borde card-hover"
                   style={{ transitionDelay: `${i * 70}ms` }}
                 >
                   <div className="w-12 h-12 bg-pcl rounded-lg flex items-center justify-center mb-4">
@@ -104,7 +86,7 @@ export default function Home() {
         <section className="py-16 md:py-20">
           <div className="max-w-7xl mx-auto px-4">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              <div className="reveal">
+              <div className="">
                 <p className="form-label text-pm mb-1">Sobre nosotros</p>
                 <h2 className="text-3xl md:text-[32px] font-bold text-oscuro mb-6">
                   Más de 25 años en Zona Oeste
@@ -130,7 +112,7 @@ export default function Home() {
                   Conoce más <i className="fa-solid fa-arrow-right"></i>
                 </Link>
               </div>
-              <div className="reveal" style={{ transitionDelay: '150ms' }}>
+              <div className="" style={{ transitionDelay: '150ms' }}>
                 <div className="relative rounded-2xl overflow-hidden shadow-xl">
                   <Image
                     src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=700&h=500&fit=crop&q=80"
@@ -155,7 +137,7 @@ export default function Home() {
         {/* CTA - Tasaciones */}
         <section className="py-16 md:py-20">
           <div className="max-w-7xl mx-auto px-4">
-            <div className="reveal bg-primario rounded-2xl p-8 md:p-12 flex flex-col md:flex-row items-center gap-8">
+            <div className=" bg-primario rounded-2xl p-8 md:p-12 flex flex-col md:flex-row items-center gap-8">
               <div className="flex-1">
                 <h2 className="text-2xl md:text-3xl font-bold text-white mb-3">
                   Tasá tu propiedad sin costo
@@ -188,7 +170,7 @@ export default function Home() {
         {/* Opinions */}
         <section className="py-16 md:py-20 bg-gcl">
           <div className="max-w-7xl mx-auto px-4">
-            <div className="reveal text-center mb-12">
+            <div className=" text-center mb-12">
               <p className="form-label text-pm mb-1">
                 Lo que dicen nuestros clientes
               </p>
@@ -198,7 +180,7 @@ export default function Home() {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {recentOpinions.map((o) => (
-                <div key={o.id} className="reveal bg-white rounded-xl p-6 border border-borde card-hover">
+                <div key={o.id} className=" bg-white rounded-xl p-6 border border-borde card-hover">
                   <div className="flex items-center gap-1 mb-3">
                     {[1, 2, 3, 4, 5].map((i) => (
                       <i
@@ -242,7 +224,7 @@ export default function Home() {
         <section className="py-16 md:py-20">
           <div className="max-w-7xl mx-auto px-4">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-              <div className="reveal">
+              <div className="">
                 <p className="form-label text-pm mb-1">Hablemos</p>
                 <h2 className="text-3xl md:text-[32px] font-bold text-oscuro mb-6">
                   Contactanos
@@ -266,7 +248,7 @@ export default function Home() {
                   ))}
                 </div>
               </div>
-              <div className="reveal" style={{ transitionDelay: '150ms' }}>
+              <div className="" style={{ transitionDelay: '150ms' }}>
                 <ContactForm />
               </div>
             </div>

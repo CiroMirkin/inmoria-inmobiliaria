@@ -383,17 +383,6 @@
   color: #f59e0b;
 }
 
-.reveal {
-  opacity: 0;
-  transform: translateY(28px);
-  transition: all 0.65s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.reveal.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
 @media (max-width: 768px) {
   .hero-bg {
     background: linear-gradient(135deg, rgba(27, 79, 138, 0.5), rgba(13, 148, 136, 0.4)),
