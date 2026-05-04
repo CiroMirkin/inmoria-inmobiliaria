@@ -119,8 +119,7 @@ export default function Privacidad() {
                 9. Suscripción por email y marketing
               </h2>
               <p>
-                Las listas de correo están segmentadas por interés (alquiler, venta,
-                emprendimientos). La suscripción requiere doble opt-in. Cada
+                Las listas de correo están segmentadas por interés (alquiler/venta). La suscripción requiere doble opt-in. Cada
                 comunicación incluye un enlace para darse de baja de manera sencilla e
                 inmediata.
               </p>

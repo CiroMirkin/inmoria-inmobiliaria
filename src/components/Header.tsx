@@ -96,12 +96,6 @@ export function Header() {
               </div>
             </div>
             <Link
-              href="/emprendimientos"
-              className={`nav-link text-sm ${isActive('/emprendimientos') && 'active'}`}
-            >
-              Emprendimientos
-            </Link>
-            <Link
               href="/tasaciones"
               className={`nav-link text-sm ${isActive('/tasaciones') && 'active'}`}
             >
@@ -204,13 +198,6 @@ export function Header() {
               Temporario
             </Link>
           </div>
-          <Link
-            href="/emprendimientos"
-            className="block px-3 py-3 font-medium rounded-lg hover:bg-gcl transition-colors"
-            onClick={() => setMobileMenuOpen(false)}
-          >
-            Emprendimientos
-          </Link>
           <Link
             href="/tasaciones"
             className="block px-3 py-3 font-medium rounded-lg hover:bg-gcl transition-colors"

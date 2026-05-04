@@ -18,11 +18,6 @@ export default function Servicios() {
       desc: 'Propiedades amuebladas y equipadas listas para habitar. Ideal para ejecutivos, profesionales en tránsito, turistas o familias en transición. Contratos flexibles desde 15 días.',
     },
     {
-      icon: 'fa-building',
-      title: 'Emprendimientos',
-      desc: 'Accedé a las mejores oportunidades en obra nueva de Zona Oeste. Asesoramiento en inversión, análisis de rentabilidad y acompañamiento durante toda la etapa de construcción hasta la entrega.',
-    },
-    {
       icon: 'fa-calculator',
       title: 'Tasaciones',
       desc: 'Tasación presencial sin costo a cargo de profesional matriculado (CPI). Informe detallado de valor comparativo con análisis de mercado. Sin compromiso de operación.',

@@ -47,11 +47,6 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/emprendimientos" className="hover:text-white">
-                  Emprendimientos
-                </Link>
-              </li>
-              <li>
                 <Link href="/tasaciones" className="hover:text-white">
                   Tasaciones
                 </Link>
