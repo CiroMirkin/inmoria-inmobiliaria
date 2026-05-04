@@ -24,16 +24,7 @@ export function Header() {
     <>
       <header className="sticky top-0 z-50 bg-white border-b border-borde transition-shadow duration-300">
         <div className="bg-primario text-white text-xs hidden md:block">
-          <div className="max-w-7xl mx-auto px-4 flex justify-between items-center h-9">
-            <div className="flex items-center gap-6">
-              <span>
-                <i className="fa-solid fa-phone mr-1.5 opacity-75"></i>011 4655-1234
-              </span>
-              <span>
-                <i className="fa-solid fa-envelope mr-1.5 opacity-75"></i>
-                info@inmoria.com
-              </span>
-            </div>
+          <div className="max-w-7xl mx-auto px-4 flex justify-center items-center h-9">
             <span>
               <i className="fa-solid fa-clock mr-1.5 opacity-75"></i>Lun a Vie
               9:00–18:00 | Sáb 9:00–13:00
