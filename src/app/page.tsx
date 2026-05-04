@@ -2,25 +2,17 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import {
   PROPERTIES,
-  DEVELOPMENTS,
   OPINIONS,
   LOCATIONS,
-  PROPERTY_TYPES,
-  OPERATIONS,
-  formatPrice,
-  getSlug,
 } from '@/lib/data';
 import { PropertyCard } from '@/components/PropertyCard';
-import { HeroSearch } from '@/components/HeroSearch';
+import Hero from '@/components/Hero';
 
 export default function Home() {
-  const router = useRouter();
   const filteredProperties = PROPERTIES.filter((p) => !p.reserved).slice(0, 6);
-  const featuredDevelopments = DEVELOPMENTS.slice(0, 3);
   const recentOpinions = OPINIONS.slice(0, 4);
 
   useEffect(() => {
@@ -39,51 +31,12 @@ export default function Home() {
     return () => observer.disconnect();
   }, []);
 
-  const handleSearch = (filters: { operation: string; type: string; zone: string; location: string; rooms: string; currency: string; priceMax: string }) => {
-    const params = new URLSearchParams();
-    if (filters.operation) params.set('op', filters.operation);
-    if (filters.type) params.set('tipo', filters.type);
-    if (filters.zone) params.set('zona', filters.zone);
-    if (filters.location) params.set('localidad', filters.location);
-    if (filters.rooms) params.set('amb', filters.rooms);
-    if (filters.currency) params.set('moneda', filters.currency);
-    if (filters.priceMax) params.set('preciohasta', filters.priceMax);
-    router.push(`/propiedades?${params.toString()}`);
-  };
+  
 
   return (
     <>
       <main id="contenido" role="main">
-        {/* Hero */}
-        <section className="hero-bg min-h-[85vh] flex items-center">
-          <div className="max-w-7xl mx-auto px-4 w-full py-20">
-            <div className="max-w-2xl mb-10">
-              <h1 className="text-4xl md:text-5xl lg:text-[48px] font-extrabold text-white leading-tight mb-4">
-                Tu próximo hogar en Zona Oeste
-              </h1>
-              <p className="text-lg text-white/80 leading-relaxed">
-                Propiedades en Ciudadela, Haedo, Ramos Mejía, Morón y más.
-                Más de 25 años acompañando familias y empresas.
-              </p>
-              <div className="flex flex-wrap gap-3 mt-8">
-                <Link
-                  href="/propiedades"
-                  className="inline-flex items-center gap-2 rounded-lg bg-white px-6 py-3 font-bold text-primario transition-colors hover:bg-white/90"
-                >
-                  <i className="fa-solid fa-search"></i>Ver propiedades
-                </Link>
-                <Link
-                  href="/tasaciones"
-                  className="inline-flex items-center gap-2 rounded-lg border-2 border-white px-6 py-3 font-bold text-white transition-colors hover:bg-white/10"
-                >
-                  <i className="fa-solid fa-calculator"></i>Solicitar tasación
-                </Link>
-              </div>
-            </div>
-            {/* Search box */}
-              <HeroSearch onSearch={handleSearch} />
-          </div>
-        </section>
+        <Hero />
 
         {/* Featured Properties */}
         <section className="py-16 md:py-20">
