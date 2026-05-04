@@ -91,6 +91,41 @@ export default function FichaPropiedad() {
               <div className="bg-white rounded-xl border border-borde p-6">
                 <h2 className="text-xl font-bold text-oscuro mb-3">Descripción</h2>
                 <p className="text-gris leading-relaxed">{property.description}</p>
+
+                <div className="mt-6">
+                  <h2 className="text-xl font-bold text-oscuro mb-3">¿Qué ofrece este lugar?</h2>
+                  <div className="max-w-xl flex flex-col gap-2 mb-6">
+                    {property.rooms > 0 && (
+                      <div className="flex items-center text-lg">
+                        <i className="fa-solid fa-door-open text-pm text-xl"></i>
+                        <p className="mx-2">Ambientes: </p>
+                        <p className="font-bold">{property.rooms}</p>
+                      </div>
+                    )}
+                    {property.bedrooms > 0 && (
+                      <div className="flex items-center text-lg">
+                        <i className="fa-solid fa-bed text-pm text-xl"></i>
+                        <p className="mx-2">Dormitorios: </p>
+                        <p className="font-bold">{property.bedrooms}</p>
+                      </div>
+                    )}
+                    {property.bathrooms > 0 && (
+                      <div className="flex items-center text-lg">
+                        <i className="fa-solid fa-bath text-pm text-xl"></i>
+                        <p className="mx-2">Baños: </p>
+                        <p className="font-bold">{property.bathrooms}</p>
+                      </div>
+                    )}
+                    {property.garage && (
+                      <div className="flex items-center text-lg">
+                        <i className="fa-solid fa-car text-pm text-xl"></i>
+                        <p className="mx-2">Cochera: </p>
+                        <p className="font-bold">Sí</p>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
                 <div className="mt-6">
                   <h2 className="text-xl font-bold text-oscuro mb-3">Ubicación</h2>
                   <p className="text-sm text-gris mb-3">

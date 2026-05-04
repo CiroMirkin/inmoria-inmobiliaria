@@ -40,37 +40,6 @@ export function PropertyDetail({ property }: PropertySidebarProps) {
         {property.location}, {property.address}
       </p>
 
-      <div className="grid grid-cols-2 gap-3 mb-6">
-        {property.rooms > 0 && (
-          <div className="bg-gcl rounded-lg p-3 text-center">
-            <i className="fa-solid fa-door-open text-pm mb-1"></i>
-            <p className="text-sm font-bold">{property.rooms}</p>
-            <p className="text-[10px] text-gris uppercase">Ambientes</p>
-          </div>
-        )}
-        {property.bedrooms > 0 && (
-          <div className="bg-gcl rounded-lg p-3 text-center">
-            <i className="fa-solid fa-bed text-pm mb-1"></i>
-            <p className="text-sm font-bold">{property.bedrooms}</p>
-            <p className="text-[10px] text-gris uppercase">Dormitorios</p>
-          </div>
-        )}
-        {property.bathrooms > 0 && (
-          <div className="bg-gcl rounded-lg p-3 text-center">
-            <i className="fa-solid fa-bath text-pm mb-1"></i>
-            <p className="text-sm font-bold">{property.bathrooms}</p>
-            <p className="text-[10px] text-gris uppercase">Baños</p>
-          </div>
-        )}
-        {property.garage && (
-          <div className="bg-gcl rounded-lg p-3 text-center">
-            <i className="fa-solid fa-car text-pm mb-1"></i>
-            <p className="text-sm font-bold">Si</p>
-            <p className="text-[10px] text-gris uppercase">Cochera</p>
-          </div>
-        )}
-      </div>
-
       <div className="space-y-2 text-sm mb-6">
         {property.totalArea > 0 && (
           <p className="flex justify-between">
