@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
-import { useState } from 'react';
+import { useState, ViewTransition } from 'react';
 import { getSlug, PROPERTIES } from '@/lib/data';
 import { SimilarPropertyCard } from '@/components/SimilarPropertyCard';
 import { PropertyDetail } from '@/components/PropertyDetail';
@@ -33,12 +33,6 @@ export default function FichaPropiedad() {
     (p) => p.id !== property.id && (p.location === property.location || p.type === property.type)
   ).slice(0, 3);
 
-  const [selectedImage, setSelectedImage] = useState(property.images[0]);
-
-  const whatsappMessage = encodeURIComponent(
-    `Hola, me interesa la propiedad ${property.id} (${property.type} ${property.operation.toLowerCase()} en ${property.location})`
-  );
-
   return (
     <>
       <main id="contenido" role="main">
@@ -60,7 +54,9 @@ export default function FichaPropiedad() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Main image and gallery */}
             <div className="lg:col-span-2 space-y-6">
-              <PropertyGallery images={property.images} alt={property.type} />
+              <ViewTransition name={`property-image-${property.id}`}>
+                <PropertyGallery images={property.images} alt={property.type} />
+              </ViewTransition>
 
               <div className="bg-white rounded-xl border border-borde p-6">
                 <h2 className="text-xl font-bold text-oscuro mb-3">Descripción</h2>
