@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { PROPERTIES, formatPrice, getSlug } from '@/lib/data';
 import { motion } from 'motion/react'
 import { ViewTransition } from 'react';
+import OperationBadge from './OperationBadge';
 
 export function PropertyCard({ property }: { property: typeof PROPERTIES[0] }) {
   const slug = getSlug(property)
@@ -38,9 +39,7 @@ export function PropertyCard({ property }: { property: typeof PROPERTIES[0] }) {
               {formatPrice(property.price, property.currency)}
             </span>
           </ViewTransition>
-          <span className="text-xs font-medium text-acento bg-acl px-2 py-0.5 rounded">
-            {property.operation}
-          </span>
+          <OperationBadge operation={property.operation} />
         </div>
 
         <ViewTransition name={`property-title-${property.id}`}>
