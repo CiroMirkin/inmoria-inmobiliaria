@@ -7,6 +7,7 @@ import { useState } from 'react';
 import { getSlug, PROPERTIES } from '@/lib/data';
 import { SimilarPropertyCard } from '@/components/SimilarPropertyCard';
 import { PropertyDetail } from '@/components/PropertyDetail';
+import { PropertyGallery } from '@/components/PropertyGallery';
 
 export default function FichaPropiedad() {
   const params = useParams();
@@ -60,33 +61,7 @@ export default function FichaPropiedad() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Main image and gallery */}
             <div className="lg:col-span-2 space-y-6">
-              <div className="rounded-2xl overflow-hidden bg-gcl">
-                <div className="aspect-16/10 relative cursor-pointer">
-                  <Image
-                    id="fmi"
-                    src={selectedImage}
-                    alt={property.type}
-                    className="w-full h-full object-cover"
-                    width={800}
-                    height={500}
-                  />
-                </div>
-                <div className="flex gap-2 p-3 overflow-x-auto">
-                  {property.images.map((img, i) => (
-                    <Image
-                      key={i}
-                      src={img}
-                      alt={`Foto ${i + 1}`}
-                      className={`w-20 h-16 object-cover rounded-lg cursor-pointer border-2 ${
-                        i === 0 ? 'border-primario' : 'border-transparent'
-                      } hover:border-pm transition-colors`}
-                      width={80}
-                      height={64}
-                      onClick={() => setSelectedImage(img)}
-                    />
-                  ))}
-                </div>
-              </div>
+              <PropertyGallery images={property.images} alt={property.type} />
 
               <div className="bg-white rounded-xl border border-borde p-6">
                 <h2 className="text-xl font-bold text-oscuro mb-3">Descripción</h2>
