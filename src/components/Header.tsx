@@ -112,14 +112,6 @@ export function Header() {
             </Link>
           </nav>
           <div className="flex items-center gap-3">
-            <Link
-              href={`https://wa.me/5491146551234?text=${encodeURIComponent(WHATSAPP_MSG)}`}
-              target="_blank"
-              rel="noopener"
-              className="btn-acento text-xs py-2 px-4 hidden md:inline-flex"
-            >
-              <i className="fa-brands fa-whatsapp text-base"></i> WhatsApp
-            </Link>
             <button
               id="mt"
               className="lg:hidden w-10 h-10 flex items-center justify-center text-oscuro"
