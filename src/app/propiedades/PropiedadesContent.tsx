@@ -26,8 +26,6 @@ export default function PropiedadesContent() {
     location: searchParams.get('localidad') || '',
     currency: searchParams.get('moneda') || '',
     priceMax: searchParams.get('preciohasta') || '',
-    address: '',
-    code: '',
   });
 
   const [showFilters, setShowFilters] = useState(false);
@@ -36,14 +34,12 @@ export default function PropiedadesContent() {
     if (filters.operation && p.operation !== filters.operation) return false;
     if (filters.type && p.type !== filters.type) return false;
     if (filters.rooms) {
-      const r = filters.rooms === '+4' ? 5 : parseInt(filters.rooms);
       if (filters.rooms === '+4' && p.rooms < 4) return false;
-      if (filters.rooms !== '+4' && p.rooms !== r) return false;
+      if (filters.rooms !== '+4' && p.rooms !== parseInt(filters.rooms)) return false;
     }
     if (filters.location && p.location !== filters.location) return false;
     if (filters.currency && p.currency !== filters.currency) return false;
     if (filters.priceMax && p.price > parseInt(filters.priceMax)) return false;
-    if (filters.address && !p.address.toLowerCase().includes(filters.address.toLowerCase())) return false;
     return true;
   });
 
@@ -67,8 +63,6 @@ export default function PropiedadesContent() {
       location: '',
       currency: '',
       priceMax: '',
-      address: '',
-      code: '',
     });
   };
 
@@ -193,47 +187,15 @@ export default function PropiedadesContent() {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-2">
-                  <div>
-                    <label className="form-label">Precio máximo</label>
-                    <input
-                      type="number"
-                      className="form-input text-sm"
-                      placeholder="Ej: 200000"
-                      value={filters.priceMax}
-                      onChange={(e) =>
-                        setFilters({ ...filters, priceMax: e.target.value })
-                      }
-                    />
-                  </div>
-                </div>
-
                 <div>
-                  <label className="form-label">
-                    <i className="fa-solid fa-map-pin mr-1"></i>Dirección
-                  </label>
+                  <label className="form-label">Precio máximo</label>
                   <input
-                    type="text"
+                    type="number"
                     className="form-input text-sm"
-                    placeholder="Buscar por dirección"
-                    value={filters.address}
+                    placeholder="Ej: 200000"
+                    value={filters.priceMax}
                     onChange={(e) =>
-                      setFilters({ ...filters, address: e.target.value })
-                    }
-                  />
-                </div>
-
-                <div>
-                  <label className="form-label">
-                    <i className="fa-solid fa-hashtag mr-1"></i>Código
-                  </label>
-                  <input
-                    type="text"
-                    className="form-input text-sm"
-                    placeholder="Ej: 001234"
-                    value={filters.code}
-                    onChange={(e) =>
-                      setFilters({ ...filters, code: e.target.value })
+                      setFilters({ ...filters, priceMax: e.target.value })
                     }
                   />
                 </div>
@@ -355,30 +317,14 @@ export default function PropiedadesContent() {
                 ))}
               </select>
             </div>
-            <div className="grid grid-cols-2 gap-2">
-              <div>
-                <label className="form-label">Precio máximo</label>
-                <input
-                  type="number"
-                  className="form-input text-sm"
-                  value={filters.priceMax}
-                  onChange={(e) =>
-                    setFilters({ ...filters, priceMax: e.target.value })
-                  }
-                />
-              </div>
-            </div>
             <div>
-              <label className="form-label">
-                <i className="fa-solid fa-hashtag mr-1"></i>Código
-              </label>
+              <label className="form-label">Precio máximo</label>
               <input
-                type="text"
+                type="number"
                 className="form-input text-sm"
-                placeholder="Ej: 001234"
-                value={filters.code}
+                value={filters.priceMax}
                 onChange={(e) =>
-                  setFilters({ ...filters, code: e.target.value })
+                  setFilters({ ...filters, priceMax: e.target.value })
                 }
               />
             </div>
