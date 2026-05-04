@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { SUCURSALES } from '@/lib/data';
+import Image from 'next/image';
 
 export function Footer() {
   return (
@@ -11,9 +12,12 @@ export function Footer() {
           <div>
             <div className="flex items-center gap-2 mb-4">
               <div className="w-9 h-9 bg-white rounded-lg flex items-center justify-center">
-                <span className="text-primario font-extrabold text-lg leading-none">
-                  I
-                </span>
+                <Image
+                  height={50}
+                  width={50}
+                  alt=''
+                  src="/isotipo.png"
+                />
               </div>
               <span className="text-xl font-extrabold tracking-tight">Inmoria</span>
             </div>
@@ -104,11 +108,11 @@ export function Footer() {
           </div>
         </div>
         <div className="mt-10 pt-8 border-t border-white/15 flex flex-col md:flex-row justify-between items-center gap-6">
-          <div className="flex items-center gap-5">
+          <div className="flex flex-wrap items-center gap-5">
             <span className="text-xs text-white/50 uppercase tracking-wider">
               Publicamos en:
             </span>
-            <div className="flex items-center gap-4 text-white/40 text-sm font-semibold">
+            <div className="flex flex-wrap items-center gap-4 text-white/40 text-sm font-semibold">
               <span>CIA</span>
               <span>Zonaprop</span>
               <span>MercadoLibre</span>
