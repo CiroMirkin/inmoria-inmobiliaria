@@ -119,19 +119,6 @@ export default function FichaPropiedad() {
                   <i className="fa-solid fa-external-link text-xs"></i>
                 </Link>
               </div>
-
-              {similar.length > 0 && (
-                <div>
-                  <h2 className="text-xl font-bold text-oscuro mb-4">
-                    Propiedades similares
-                  </h2>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-                    {similar.map((p) => (
-                      <SimilarPropertyCard key={p.id} property={p} />
-                    ))}
-                  </div>
-                </div>
-              )}
             </div>
 
             {/* Sidebar info */}
@@ -255,6 +242,19 @@ export default function FichaPropiedad() {
               </div>
             </div>
           </div>
+
+          {similar.length > 0 && (
+            <div className="w-full mt-8">
+              <h2 className="text-xl font-bold text-oscuro mb-4">
+                Propiedades similares
+              </h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                {similar.map((p) => (
+                  <SimilarPropertyCard key={p.id} property={p} />
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </main>
     </>
