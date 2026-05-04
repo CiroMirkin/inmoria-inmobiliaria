@@ -181,7 +181,7 @@ export default function Home() {
               <div className="reveal" style={{ transitionDelay: '150ms' }}>
                 <div className="relative rounded-2xl overflow-hidden shadow-xl">
                   <Image
-                    src="https://picsum.photos/seed/inmofic/700/500"
+                    src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=700&h=500&fit=crop&q=80"
                     alt="Oficina Inmoria"
                     className="w-full h-auto"
                     width={700}

@@ -83,7 +83,7 @@
 
 .hero-bg {
   background: linear-gradient(135deg, rgba(27, 79, 138, 0.93), rgba(13, 148, 136, 0.87)),
-    url('https://picsum.photos/seed/inmhero/1920/1080') center/cover;
+    url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1920&h=1080&fit=crop&q=80') center/cover;
   background-size: 200% 200%;
   animation: gradientMove 15s ease infinite;
 }
@@ -397,6 +397,6 @@
 @media (max-width: 768px) {
   .hero-bg {
     background: linear-gradient(135deg, rgba(27, 79, 138, 0.96), rgba(13, 148, 136, 0.9)),
-      url('https://picsum.photos/seed/inmhero/800/1200') center/cover;
+      url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&h=1200&fit=crop&q=80') center/cover;
   }
 }

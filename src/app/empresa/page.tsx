@@ -19,10 +19,10 @@ export default function Empresa() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
             <div className="rounded-2xl overflow-hidden">
               <Image
-                src="https://picsum.photos/seed/inmfounder/600/500"
-                alt="Fundador"
+                src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=700&h=500&fit=crop&q=80"
+                alt="Oficina"
                 className="w-full h-auto"
-                width={600}
+                width={700}
                 height={500}
               />
             </div>
