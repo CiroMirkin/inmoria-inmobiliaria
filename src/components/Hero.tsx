@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { HeroSearch } from "./HeroSearch";
 import { useRouter } from "next/navigation";
+import { HeroCarousel } from "./HeroCarousel";
 
 export default function Hero() {
     const router = useRouter()
@@ -20,9 +21,10 @@ export default function Hero() {
       }
 
     return (
-        <section className="hero-bg min-h-[85vh] flex items-center">
-          <div className="max-w-7xl mx-auto px-4 w-full py-20">
-            <div className="max-w-4xl mb-10">
+      <section className="hero-bg min-h-[85vh] flex items-center">
+        <div className="max-w-7xl flex flex-wrap gap-8 mx-auto px-4 w-full py-20">
+          <div className="max-w-2xl mb-10 flex flex-col justify-between gap-10">
+            <div>
               <h1 className="text-4xl md:text-5xl lg:text-[48px] font-extrabold text-white leading-tight mb-4">
                 Tu próximo hogar en Zona Oeste
               </h1>
@@ -31,9 +33,11 @@ export default function Hero() {
                 Más de 25 años acompañando familias y empresas.
               </p>
             </div>
-            {/* Search box */}
-              <HeroSearch onSearch={handleSearch} />
+            
+            <HeroCarousel />
           </div>
-        </section>
+          <HeroSearch onSearch={handleSearch} />
+        </div>
+      </section>
     )
 }
