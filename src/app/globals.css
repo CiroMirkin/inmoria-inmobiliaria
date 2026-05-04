@@ -82,7 +82,7 @@
 }
 
 .hero-bg {
-  background: linear-gradient(135deg, rgba(27, 79, 138, 0.5), rgba(13, 148, 136, 0.4)),
+  background: linear-gradient(135deg, rgba(27, 79, 138, 0.6), rgba(13, 148, 136, 0.4)),
     url('/hero.jpg') center/cover no-repeat fixed;
   background-attachment: fixed;
   animation: none !important;
