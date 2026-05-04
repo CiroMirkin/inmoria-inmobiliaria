@@ -1,10 +1,15 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { PROPERTIES, formatPrice, getSlug } from '@/lib/data';
+import { motion } from 'motion/react'
 
 export function PropertyCard({ property }: { property: typeof PROPERTIES[0] }) {
   return (
-    <article className="bg-white rounded-xl border border-borde overflow-hidden card-hover">
+    <motion.article
+      className="bg-white rounded-xl border border-borde overflow-hidden card-hover"
+      whileHover={{ y: -6 }}
+      transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+    >
       <div className="relative aspect-4/3 img-zoom">
         <Image
           src={property.images[0]}
@@ -37,6 +42,12 @@ export function PropertyCard({ property }: { property: typeof PROPERTIES[0] }) {
           {property.address}
         </p>
         <div className="flex items-center gap-4 text-xs text-gris">
+          {property.totalArea > 0 && (
+            <p className="text-xs text-gris mt-1">
+              <i className="fa-solid fa-ruler-combined mr-1 text-pm"></i>
+              {property.totalArea} m²
+            </p>
+          )}
           {property.rooms > 0 && (
             <span>
               <i className="fa-solid fa-door-open mr-1 text-pm"></i>
@@ -61,12 +72,6 @@ export function PropertyCard({ property }: { property: typeof PROPERTIES[0] }) {
             </span>
           )}
         </div>
-        {property.totalArea > 0 && (
-          <p className="text-xs text-gris mt-1">
-            <i className="fa-solid fa-ruler-combined mr-1 text-pm"></i>
-            {property.totalArea} m²
-          </p>
-        )}
         <Link
           href={`/propiedades/${getSlug(property)}`}
           className="block mt-4 text-center text-sm font-semibold text-pm hover:text-primario transition-colors border border-primario/20 rounded-lg py-2 hover:bg-pcl"
@@ -74,6 +79,6 @@ export function PropertyCard({ property }: { property: typeof PROPERTIES[0] }) {
           Ver detalle
         </Link>
       </div>
-    </article>
+    </motion.article>
   );
 }
