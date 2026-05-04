@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { SUCURSALES } from '@/lib/data';
 import Image from 'next/image';
+import { Newsletter } from './Newsletter';
 
 export function Footer() {
   return (
@@ -74,37 +75,7 @@ export function Footer() {
             </div>
           </div>
           <div>
-            <h4 className="font-bold text-sm uppercase tracking-wider mb-4">
-              Recibí novedades
-            </h4>
-            <p className="text-sm text-white/70 mb-4">
-              Suscribite y recibí oportunidades según tu interés.
-            </p>
-            <form className="space-y-3">
-              <input
-                type="email"
-                placeholder="Tu email"
-                required
-                className="w-full px-3 py-2.5 rounded-lg bg-white/10 border border-white/20 text-white placeholder-white/40 text-sm focus:outline-none focus:border-white/50"
-              />
-              <div className="flex flex-wrap gap-2">
-                <button type="button" className="chip active border-white/30! bg-white/20!">
-                  Todo
-                </button>
-                <button type="button" className="chip !border-white/30/70">
-                  Alquiler
-                </button>
-                <button type="button" className="chip !border-white/30/70">
-                  Venta
-                </button>
-                <button type="button" className="chip !border-white/30/70">
-                  Emprend.
-                </button>
-              </div>
-              <button type="submit" className="btn-acento w-full justify-center text-sm py-2.5">
-                Suscribirme
-              </button>
-            </form>
+            <Newsletter />
           </div>
         </div>
         <div className="mt-10 pt-8 border-t border-white/15 flex flex-col md:flex-row justify-between items-center gap-6">
