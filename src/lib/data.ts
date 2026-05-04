@@ -837,6 +837,14 @@ export function formatPrice(price: number, currency: string): string {
     : `$ ${price.toLocaleString('es-AR')}`;
 }
 
+function slugify(str: string): string {
+  return str
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/\s+/g, '-')
+}
+
 export function getSlug(property: Property): string {
-  return `${property.type.toLowerCase()}-${property.operation.toLowerCase()}-${property.location.toLowerCase().replace(/\s+/g, '-')}-${property.rooms}-amb-${property.id}`;
+  return `${slugify(property.type)}-${slugify(property.operation)}-${slugify(property.location)}-${property.rooms}-amb-${property.id}`
 }

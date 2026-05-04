@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
 import { useState } from 'react';
-import { PROPERTIES } from '@/lib/data';
+import { getSlug, PROPERTIES } from '@/lib/data';
 import { SimilarPropertyCard } from '@/components/SimilarPropertyCard';
 import { PropertyDetail } from '@/components/PropertyDetail';
 
@@ -12,10 +12,7 @@ export default function FichaPropiedad() {
   const params = useParams();
   const slug = params.slug as string;
   
-  const property = PROPERTIES.find((p) => {
-    const propSlug = `${p.type.toLowerCase()}-${p.operation.toLowerCase()}-${p.location.toLowerCase().replace(/\s+/g, '-')}-${p.rooms}-amb-${p.id}`;
-    return propSlug === slug;
-  });
+  const property = PROPERTIES.find((p) => getSlug(p) === slug)
 
   if (!property) {
     return (
