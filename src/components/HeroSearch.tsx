@@ -46,7 +46,7 @@ export function HeroSearch({ onSearch }: HeroSearchProps) {
   };
 
   return (
-    <div className="bg-white rounded-2xl shadow-2xl p-5 md:p-6 max-w-5xl">
+    <div className="bg-white rounded-2xl shadow-2xl p-5 md:p-6 w-full md:w-auto max-w-7xl">
       <div className="flex gap-1 mb-0 flex-wrap">
         <button
           className={`tab-btn ${searchOp === '' ? 'active' : ''}`}
@@ -68,7 +68,7 @@ export function HeroSearch({ onSearch }: HeroSearchProps) {
         </button>
       </div>
       <div className="border border-t-0 border-borde rounded-b-xl p-4 md:p-5">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mb-3">
+        <div className="flex flex-col gap-3 mb-3">
           <div>
             <label className="form-label">Tipo</label>
             <select
